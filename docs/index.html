@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude na Mão — começa hoje, cresce no seu ritmo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Nunito+Sans:wght@400;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul: #064794;
+    --azul-escuro: #032855;
+    --rosa: #EA2871;
+    --amarelo: #FFD413;
+    --branco: #ffffff;
+    --cinza-claro: #f5f5f5;
+    --cinza-medio: #888;
+    --cinza-escuro: #1a1a1a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    background: var(--branco);
+    color: var(--cinza-escuro);
+    line-height: 1.6;
+    font-size: 17px;
+  }
+  h1, h2, h3 { font-family: 'Nunito', sans-serif; font-weight: 900; line-height: 1.15; color: var(--azul); }
+  h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+  h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 1rem; }
+  h3 { font-size: 1.4rem; margin-bottom: 0.5rem; color: var(--azul-escuro); }
+  code, pre, .mono { font-family: 'DM Mono', monospace; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--azul) 0%, var(--azul-escuro) 100%);
+    color: var(--branco);
+    padding: 5rem 1.5rem 6rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%; right: -10%;
+    width: 50%; height: 140%;
+    background: var(--rosa);
+    opacity: 0.15;
+    transform: rotate(15deg);
+    border-radius: 30%;
+  }
+  .hero h1 { color: var(--branco); position: relative; z-index: 1; }
+  .hero .tagline {
+    font-size: 1.3rem;
+    margin-top: 1rem;
+    opacity: 0.95;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative; z-index: 1;
+  }
+  .hero .badge {
+    display: inline-block;
+    background: var(--amarelo);
+    color: var(--azul-escuro);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 99px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    position: relative; z-index: 1;
+  }
+  .hero .cta-row {
+    margin-top: 2.5rem;
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+  .btn {
+    display: inline-block;
+    padding: 0.9rem 1.8rem;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    font-family: 'Nunito', sans-serif;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+  .btn-rosa { background: var(--rosa); color: var(--branco); }
+  .btn-amarelo { background: var(--amarelo); color: var(--azul-escuro); }
+  .btn-outline { background: transparent; color: var(--branco); border: 2px solid var(--branco); }
+
+  /* SECTIONS */
+  section { padding: 4rem 1.5rem; max-width: 960px; margin: 0 auto; }
+  .section-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    color: var(--rosa);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+  }
+
+  /* PASSOS */
+  .passos { counter-reset: passo; }
+  .passo {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: var(--cinza-claro);
+    border-radius: 12px;
+    border-left: 4px solid var(--rosa);
+  }
+  .passo::before {
+    counter-increment: passo;
+    content: counter(passo);
+    background: var(--azul);
+    color: var(--branco);
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 1.5rem;
+  }
+  .passo h3 { color: var(--azul); margin-bottom: 0.5rem; }
+  .passo .descricao { color: #444; margin-bottom: 0.8rem; font-size: 0.98rem; }
+  pre {
+    background: var(--cinza-escuro);
+    color: #c9f0ff;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+  }
+  code:not(pre code) {
+    background: rgba(234, 40, 113, 0.1);
+    color: var(--rosa);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.92em;
+  }
+
+  /* GRID DE CARDS */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+    margin-top: 2rem;
+  }
+  .card {
+    background: var(--branco);
+    border: 2px solid var(--cinza-claro);
+    padding: 1.5rem;
+    border-radius: 10px;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .card:hover { border-color: var(--azul); transform: translateY(-3px); }
+  .card .titulo {
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    color: var(--azul);
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  .card .desc { color: #555; font-size: 0.95rem; }
+
+  .destaque {
+    background: linear-gradient(135deg, #fff8d5 0%, #fff3a8 100%);
+    border-left: 5px solid var(--amarelo);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+  }
+  .destaque strong { color: var(--azul-escuro); }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--azul);
+  }
+  .marco {
+    position: relative;
+    margin-bottom: 2rem;
+    padding-left: 1.5rem;
+  }
+  .marco::before {
+    content: '';
+    position: absolute;
+    left: -2rem; top: 0.4rem;
+    width: 19px; height: 19px;
+    background: var(--rosa);
+    border-radius: 50%;
+    border: 4px solid var(--branco);
+    box-shadow: 0 0 0 2px var(--rosa);
+  }
+  .marco h3 { color: var(--azul); margin-bottom: 0.3rem; }
+  .marco .quando {
+    font-family: 'DM Mono', monospace;
+    color: var(--cinza-medio);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--azul-escuro);
+    color: var(--branco);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    margin-top: 3rem;
+  }
+  footer .marca {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    color: var(--amarelo);
+    font-size: 1.2rem;
+  }
+  footer p { opacity: 0.85; margin-top: 0.5rem; font-size: 0.95rem; }
+
+  .secao-clara { background: var(--cinza-claro); }
+  .secao-clara-wrapper { padding: 4rem 0; }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    .hero { padding: 3rem 1rem 4rem; }
+    .passo { grid-template-columns: 50px 1fr; padding: 1rem; }
+    .passo::before { width: 42px; height: 42px; font-size: 1.2rem; }
+    section { padding: 3rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <span class="badge">PARA AMIGAS DA DANI</span>
+  <h1>Claude na Mão</h1>
+  <p class="tagline">Começa hoje no seu Mac, cresce no seu ritmo. Um Claude Code que pensa, escreve e executa do seu lado — com 15 skills e 5 agentes prontos.</p>
+  <div class="cta-row">
+    <a href="#instalacao" class="btn btn-amarelo">Bora instalar →</a>
+    <a href="#futuro" class="btn btn-outline">Ver o roadmap</a>
+  </div>
+</header>
+
+<!-- O QUE É -->
+<section>
+  <span class="section-tag">// o que é isso</span>
+  <h2>Um kit pronto pra você sair usando</h2>
+  <p>O <strong>Claude na Mão</strong> empacota o melhor do setup que a Dani usa todo dia, sem nada do que é específico da agência dela. Você instala uma vez, e a partir daí seu Claude Code já vem com personalidade direta, atalhos práticos e skills especializadas pra escrever copy, montar conteúdo de Instagram, editar vídeo, ler email, criar landing page e mais.</p>
+  <div class="destaque">
+    <strong>Pra começar você precisa:</strong> Mac com terminal, plano <span class="mono">Pro</span> da Anthropic, e ~15 minutos com a Dani do seu lado pra primeira instalação.
+  </div>
+</section>
+
+<!-- INSTALAÇÃO -->
+<div class="secao-clara">
+  <div class="secao-clara-wrapper">
+    <section id="instalacao">
+      <span class="section-tag">// instalação</span>
+      <h2>5 passos do zero ao primeiro "oi Claude"</h2>
+
+      <div class="passos">
+
+        <div class="passo">
+          <div>
+            <h3>Instala o Node e o Claude Code</h3>
+            <p class="descricao">Abra o Terminal (Cmd+Espaço, digite "Terminal"). Cola e dá Enter:</p>
+<pre>brew install node tmux
+npm install -g @anthropic-ai/claude-code</pre>
+            <p class="descricao"><em>Se não tiver brew, a Dani te ajuda — uma linha só.</em></p>
+          </div>
+        </div>
+
+        <div class="passo">
+          <div>
+            <h3>Faz login com seu plano Pro</h3>
+            <p class="descricao">No Terminal:</p>
+<pre>claude login</pre>
+            <p class="descricao">Abre o navegador, você loga na sua conta Anthropic, volta pro Terminal e tá conectado.</p>
+          </div>
+        </div>
+
+        <div class="passo">
+          <div>
+            <h3>Baixa o kit Claude na Mão</h3>
+<pre>git clone https://github.com/agencia-digd/claude-na-mao ~/claude-na-mao
+cd ~/claude-na-mao
+./install.sh</pre>
+            <p class="descricao">O script copia as skills, agentes, configurações e o CLAUDE.md pra <code>~/.claude/</code>. Idempotente — pode rodar de novo sem quebrar nada.</p>
+          </div>
+        </div>
+
+        <div class="passo">
+          <div>
+            <h3>Abre uma sessão tmux</h3>
+            <p class="descricao">tmux mantém o Claude vivo mesmo se você fechar o Terminal sem querer.</p>
+<pre>tmux new -s claude
+claude</pre>
+            <p class="descricao">Pra desconectar sem matar: <code>Ctrl+B</code> depois <code>D</code>. Pra voltar: <code>tmux attach -t claude</code>.</p>
+          </div>
+        </div>
+
+        <div class="passo">
+          <div>
+            <h3>Diz oi</h3>
+            <p class="descricao">No prompt do Claude:</p>
+<pre>oi! lista as skills e agentes que você tem disponíveis</pre>
+            <p class="descricao">Se ele responder com a lista, deu certo. Bora explorar.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- O QUE VEM -->
+<section>
+  <span class="section-tag">// o que vem instalado</span>
+  <h2>15 skills + 5 agentes prontos</h2>
+  <p>As <strong>skills</strong> são especialistas pontuais. Os <strong>agentes</strong> orquestram várias skills num fluxo só.</p>
+
+  <h3 style="margin-top:2rem; color: var(--rosa); font-family: 'DM Mono', monospace; font-weight: 500; font-size: 1.1rem;">SKILLS</h3>
+  <div class="cards">
+    <div class="card"><div class="titulo">copywriting-pro</div><div class="desc">Copy persuasiva (ads, landing, email) com frameworks AIDA, PAS, BAB.</div></div>
+    <div class="card"><div class="titulo">instagram-master</div><div class="desc">Posts, Reels, carrosséis, calendário e estratégia de 6 meses.</div></div>
+    <div class="card"><div class="titulo">instagram-search</div><div class="desc">Buscar perfis, hashtags e tendências do Instagram.</div></div>
+    <div class="card"><div class="titulo">content-marketing-strategy</div><div class="desc">Plano de conteúdo + lead magnets pra startups.</div></div>
+    <div class="card"><div class="titulo">content-repurposing-engine</div><div class="desc">1 conteúdo vira 10+ formatos (tweet, LinkedIn, newsletter…).</div></div>
+    <div class="card"><div class="titulo">landing-page-master</div><div class="desc">Landing pages que convertem, anti-genéricas.</div></div>
+    <div class="card"><div class="titulo">ffmpeg-video-editor</div><div class="desc">Edita vídeo por linguagem natural (corta, comprime, formato).</div></div>
+    <div class="card"><div class="titulo">gmail</div><div class="desc">Ler, enviar, organizar email via API gerenciada.</div></div>
+    <div class="card"><div class="titulo">gog</div><div class="desc">CLI pra Gmail, Calendar, Drive, Sheets, Docs, Contacts.</div></div>
+    <div class="card"><div class="titulo">google-calendar-api</div><div class="desc">Criar eventos e checar disponibilidade no Google Calendar.</div></div>
+    <div class="card"><div class="titulo">notion-cli</div><div class="desc">Criar páginas, databases e blocos no Notion.</div></div>
+    <div class="card"><div class="titulo">social-media-strategy</div><div class="desc">Construir audiência, escolher plataforma, social listening.</div></div>
+    <div class="card"><div class="titulo">social-media-agent</div><div class="desc">Automação de X/Twitter via browser, sem API keys.</div></div>
+    <div class="card"><div class="titulo">jarvis-mission-control</div><div class="desc">Hub de coordenação humano+IA com tarefas e dashboard.</div></div>
+    <div class="card"><div class="titulo">find-skills</div><div class="desc">Descobrir e instalar skills novas conforme você precisa.</div></div>
+  </div>
+
+  <h3 style="margin-top:2.5rem; color: var(--rosa); font-family: 'DM Mono', monospace; font-weight: 500; font-size: 1.1rem;">AGENTES</h3>
+  <div class="cards">
+    <div class="card"><div class="titulo">social-creator</div><div class="desc">Cria post/reel/carrossel completo com copy boa. Usa <em>instagram-master + copywriting-pro + content-repurposing-engine</em>.</div></div>
+    <div class="card"><div class="titulo">email-helper</div><div class="desc">Lê emails, escreve respostas no seu tom. Usa <em>gmail + copywriting-pro</em>.</div></div>
+    <div class="card"><div class="titulo">video-cutter</div><div class="desc">Edita vídeo conversando ("corta de 1:21 a 1:35"). Usa <em>ffmpeg-video-editor</em>.</div></div>
+    <div class="card"><div class="titulo">landing-builder</div><div class="desc">Monta landing page que converte. Usa <em>landing-page-master + copywriting-pro</em>.</div></div>
+    <div class="card"><div class="titulo">content-strategist</div><div class="desc">Planeja calendário e analisa concorrentes. Usa <em>content-marketing-strategy + social-media-strategy + instagram-search</em>.</div></div>
+  </div>
+</section>
+
+<!-- MEMÓRIA -->
+<div class="secao-clara">
+  <div class="secao-clara-wrapper">
+    <section>
+      <span class="section-tag">// memória</span>
+      <h2>Como ele lembra de você</h2>
+      <p>Diferente do ChatGPT, o Claude Code <strong>realmente lembra</strong> entre sessões — sem você precisar repetir contexto toda vez.</p>
+
+      <div class="cards">
+        <div class="card">
+          <div class="titulo">CLAUDE.md</div>
+          <div class="desc">Suas instruções permanentes. Quem você é, como gosta que ele responda, o que NÃO fazer. Lê toda sessão.</div>
+        </div>
+        <div class="card">
+          <div class="titulo">Auto Memory</div>
+          <div class="desc">Anotações que ele salva sozinho conforme aprende suas preferências, projetos, pessoas. Em <code>~/.claude/projects/.../memory/</code>.</div>
+        </div>
+        <div class="card">
+          <div class="titulo">Sessão viva</div>
+          <div class="desc">Dentro de uma conversa, ele lembra de tudo até você fechar. Use tmux pra manter a sessão viva por dias.</div>
+        </div>
+      </div>
+
+      <div class="destaque" style="margin-top: 2rem;">
+        <strong>O que você NÃO tem ainda</strong> (e tá tudo bem): busca semântica de "lembra quando conversamos sobre X meses atrás". Isso requer um banco vetorial num servidor — roadmap pro futuro, quando você tiver volume.
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ROADMAP -->
+<section id="futuro">
+  <span class="section-tag">// quando você crescer</span>
+  <h2>Roadmap de evolução</h2>
+  <p>Comece simples. Ative cada peça quando sentir que precisa — não antes.</p>
+
+  <div class="timeline" style="margin-top: 2.5rem;">
+
+    <div class="marco">
+      <div class="quando">📍 AGORA</div>
+      <h3>Dia 1 ao 30 — uso diário</h3>
+      <p>Use as 15 skills e 5 agentes. Ajuste o <code>CLAUDE.md</code> conforme descobre o que funciona pra você. Deixe a Auto Memory acumular contexto.</p>
+    </div>
+
+    <div class="marco">
+      <div class="quando">⏭ MÊS 2-3</div>
+      <h3>Skills personalizadas</h3>
+      <p>Quando perceber que faz a mesma sequência de prompts toda semana — vira skill. Bora codar a primeira juntas: copia uma das 15 como template, adapta.</p>
+    </div>
+
+    <div class="marco">
+      <div class="quando">⏭ MÊS 3-6</div>
+      <h3>MCPs (extensões com superpoderes)</h3>
+      <p>MCPs ligam o Claude a serviços externos com tools dedicadas — exemplos: Google Workspace turbinado, Linear, Slack, sua própria API. Instala um por vez.</p>
+    </div>
+
+    <div class="marco">
+      <div class="quando">⏭ QUANDO ENGATAR</div>
+      <h3>Memória semântica local</h3>
+      <p>Se a Auto Memory não bastar (você quer "lembra do que falamos sobre X em fevereiro"), monta um banco vetorial local no Mac com SQLite + sentence-transformers. Sem custo extra. Roda offline.</p>
+    </div>
+
+    <div class="marco">
+      <div class="quando">⏭ AVANÇADO</div>
+      <h3>Bridges WhatsApp/Telegram</h3>
+      <p>Pra falar com seu Claude do celular como a Dani faz. Requer servidor sempre-ligado (~R$30/mês VPS). Repo separado, instalação guiada quando você quiser.</p>
+    </div>
+
+    <div class="marco">
+      <div class="quando">⏭ MULTI-MÁQUINA</div>
+      <h3>Sync via Git privado</h3>
+      <p>Quando tiver Claude no Mac do trabalho E no de casa, commitar <code>~/.claude/projects/.../memory/</code> num repo privado. Memória te segue.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- O QUE NÃO TEM -->
+<div class="secao-clara">
+  <div class="secao-clara-wrapper">
+    <section>
+      <span class="section-tag">// transparência</span>
+      <h2>O que NÃO vem nesse kit</h2>
+      <p>Pra ficar claro desde o começo:</p>
+      <div class="cards">
+        <div class="card"><div class="titulo">Skills da agência da Dani</div><div class="desc">Bettin, dig.D, Kommo, gestor de tráfego — tudo isso é proprietário.</div></div>
+        <div class="card"><div class="titulo">Memórias da Dani</div><div class="desc">Histórico, preferências, contatos dela. Você começa o seu do zero.</div></div>
+        <div class="card"><div class="titulo">A "Dora"</div><div class="desc">A identidade da assistente da Dani é dela. Seu Claude vai ter a personalidade que VOCÊ definir no CLAUDE.md.</div></div>
+        <div class="card"><div class="titulo">Servidor / banco / cron</div><div class="desc">Tudo roda no seu Mac. Sem custos de infra no começo.</div></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="marca">claude-na-mao</div>
+  <p>Empacotado com carinho pela Daniela Okada · <a href="https://digd.com.br" style="color: var(--amarelo);">dig.D</a></p>
+  <p style="font-size: 0.85rem; opacity: 0.6; margin-top: 1rem;">Open source · MIT License · Fork à vontade</p>
+</footer>
+
+</body>
+</html>
