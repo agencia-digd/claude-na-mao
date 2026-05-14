@@ -9,3 +9,6 @@ __pycache__/
 node_modules/
 .idea/
 .vscode/
+
+# Local Netlify folder
+.netlify
